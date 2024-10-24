@@ -1,0 +1,24 @@
+<resources>
+    <!-- Base application theme without ActionBar (used for Splash or other screens without ActionBar) -->
+    <style name="Base.Theme.Journal.NoActionBar" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme without ActionBar here -->
+        <item name="colorPrimary">@color/light_blue</item>
+        <!-- Example: Uncomment if you want to specify custom colors -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <!-- Theme for screens with ActionBar -->
+    <style name="Base.Theme.Journal.ActionBar" parent="Theme.Material3.DayNight">
+        <!-- Customize your theme with ActionBar here -->
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">false</item>
+        <item name="colorPrimary">@color/light_blue</item>
+        <!-- Example: Uncomment if you want to specify custom colors -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <!-- Extend the base theme for flexibility -->
+    <style name="Theme.Journal.NoActionBar" parent="Base.Theme.Journal.NoActionBar" />
+    <style name="Theme.Journal.ActionBar" parent="Base.Theme.Journal.ActionBar" />
+
+</resources>

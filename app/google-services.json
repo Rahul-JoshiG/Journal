@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "43355295174",
+    "firebase_url": "https://journal-a43de-default-rtdb.firebaseio.com",
+    "project_id": "journal-a43de",
+    "storage_bucket": "journal-a43de.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:43355295174:android:53f7fcd2653b79564eb6c7",
+        "android_client_info": {
+          "package_name": "com.journalapp.journal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUwRd2TtOMsWzFMaG8lGQBXxaA4-hMBEQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

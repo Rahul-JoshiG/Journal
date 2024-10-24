@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Journal</string>
+    <string name="enter_your_email">Enter your Email</string>
+    <string name="log_in">Log In</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="forget_password">forget password?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="welcome">Welcome</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="or">OR</string>
+    <string name="google">google</string>
+    <string name="user">User</string>
+    <string name="user_name">User Name</string>
+    <string name="journal_title">Journal Title</string>
+    <string name="journal_description">Journal Description....</string>
+    <string name="journal_date">Journal Date</string>
+    <string name="share_journal">Share Journal</string>
+    <string name="add_journal">Add Journal</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="add_new_journal">Add new journal</string>
+    <string name="post">Post</string>
+    <string name="remember_me">Remember Me</string>
+    <string name="app_logo">app logo</string>
+</resources>

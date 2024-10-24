@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/gredient_signup"
+        android:padding="16dp"
+        tools:context=".view.SignUpActivity">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/welcome_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:paddingHorizontal="50dp"
+            android:text="@string/welcome"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/user_edit_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/user_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="40dp"
+            android:autofillHints=""
+            android:background="@drawable/edit_text_background"
+            android:drawableStart="@drawable/user_24"
+            android:drawablePadding="10dp"
+            android:hint="@string/user"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:paddingHorizontal="10dp"
+            android:textColorHint="@color/dark_teal"
+            app:layout_constraintEnd_toEndOf="@id/welcome_text_view"
+            app:layout_constraintStart_toStartOf="@id/welcome_text_view"
+            app:layout_constraintTop_toBottomOf="@id/welcome_text_view"
+            tools:ignore="Email Id,LabelFor,VisualLintTextFieldSize" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/email_id_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:autofillHints=""
+            android:background="@drawable/edit_text_background"
+            android:drawableStart="@drawable/baseline_email_24"
+            android:drawablePadding="10dp"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:minHeight="48dp"
+            android:paddingHorizontal="10dp"
+            android:textColorHint="@color/dark_teal"
+            app:layout_constraintBottom_toTopOf="@id/password_edit_text"
+            app:layout_constraintEnd_toEndOf="@id/user_edit_text"
+            app:layout_constraintStart_toStartOf="@id/user_edit_text"
+            app:layout_constraintTop_toBottomOf="@id/user_edit_text"
+            tools:ignore="Email Id,LabelFor,VisualLintTextFieldSize" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/password_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:autofillHints=""
+            android:background="@drawable/edit_text_background"
+            android:drawableStart="@drawable/password_24"
+            android:drawablePadding="10dp"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:minHeight="48dp"
+            android:paddingHorizontal="10dp"
+            android:textColorHint="@color/dark_teal"
+            app:layout_constraintBottom_toTopOf="@id/sign_up_btn"
+            app:layout_constraintEnd_toEndOf="@id/email_id_edit_text"
+            app:layout_constraintStart_toStartOf="@id/email_id_edit_text"
+            app:layout_constraintTop_toBottomOf="@id/email_id_edit_text"
+            tools:ignore="LabelFor,VisualLintTextFieldSize,TextContrastCheck" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/sign_up_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/button_background"
+            android:elevation="8dp"
+            android:paddingVertical="15dp"
+            android:text="@string/sign_up"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/password_edit_text"
+            app:layout_constraintStart_toStartOf="@id/password_edit_text"
+            app:layout_constraintTop_toBottomOf="@id/password_edit_text" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/or"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:paddingHorizontal="60dp"
+            android:text="@string/or"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="@id/sign_up_btn"
+            app:layout_constraintStart_toStartOf="@id/sign_up_btn"
+            app:layout_constraintTop_toBottomOf="@id/sign_up_btn" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/google_image_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/google_button_background"
+            android:contentDescription="@string/google"
+            android:elevation="8dp"
+            android:padding="20dp"
+            android:src="@drawable/google_48"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/or"
+            app:layout_constraintStart_toStartOf="@id/or"
+            app:layout_constraintTop_toBottomOf="@id/or"
+            tools:ignore="ImageContrastCheck" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
