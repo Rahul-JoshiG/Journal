@@ -14,6 +14,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.journalapp.journal.R
 import com.journalapp.journal.adapters.JournalAdapter
@@ -27,10 +29,11 @@ class DashBoardActivity : AppCompatActivity() {
 
     // Firebase auth
     private var mFirebaseAuth = FirebaseAuth.getInstance()
+    private lateinit var mUser: FirebaseUser
 
     // FireStore
     private val mFireStore = FirebaseFirestore.getInstance()
-    private val mCollectionReference = mFireStore.collection("Journals")
+    private lateinit var mCollectionReference: CollectionReference
 
     // Adapter
     private lateinit var mAdapter: JournalAdapter
@@ -95,6 +98,13 @@ class DashBoardActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         Log.d(TAG, "onStart: dashboard activity")
+
+        mUser = mFirebaseAuth.currentUser ?: run {
+            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()
+            finish()
+            return
+        }
+        mCollectionReference = mFireStore.collection("${mUser.uid}_Journals")
 
         val journalList: ArrayList<Journal> = ArrayList()
 

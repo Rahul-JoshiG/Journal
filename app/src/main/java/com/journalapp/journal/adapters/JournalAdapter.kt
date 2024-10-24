@@ -36,7 +36,6 @@ class JournalAdapter(private var journal: List<Journal>) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(journal: Journal) {
-            binding.journalUserName.text = journal.name
             val timeAgo = DateUtils.getRelativeTimeSpanString(journal.date.seconds * 1000L).toString()
             binding.journalDate.text = timeAgo
             binding.journalTitle.text = journal.title
