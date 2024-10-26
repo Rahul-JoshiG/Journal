@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -15,6 +14,7 @@ import com.journalapp.journal.R
 import com.journalapp.journal.databinding.ActivityLoginBinding
 import com.journalapp.journal.utils.Constant
 import com.journalapp.journal.utils.SessionManager
+import com.journalapp.journal.utils.ToastHelper
 
 class LogInActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var mBinding: ActivityLoginBinding
@@ -63,15 +63,11 @@ class LogInActivity : AppCompatActivity(), View.OnClickListener {
         Log.d(TAG, "forgetPassword: forget password method called")
         if(email.isEmpty())
         {
-            Toast.makeText(this@LogInActivity, "Please provide email", Toast.LENGTH_SHORT).show()
+            ToastHelper.showToast("Please provide email")
             return
         }
         mFirebaseAuth.sendPasswordResetEmail(email).addOnSuccessListener {
-            Toast.makeText(
-                this@LogInActivity,
-                "Reset Password Email sent in your email",
-                Toast.LENGTH_SHORT
-            ).show()
+            ToastHelper.showToast("Reset Password Email sent in your email")
         }
     }
 
@@ -92,8 +88,7 @@ class LogInActivity : AppCompatActivity(), View.OnClickListener {
                 .addOnSuccessListener {
                     openActivity(DashBoardActivity::class.java)
                 }.addOnFailureListener {
-                    Toast.makeText(this@LogInActivity, "User Doesn't Exists", Toast.LENGTH_SHORT)
-                        .show()
+                    ToastHelper.showToast("User Doesn't Exists")
                 }
         }
     }

@@ -88,7 +88,14 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
                 mBinding.emailIdEditText.text.toString(),
                 mBinding.passwordEditText.text.toString()
             )
+            R.id.google_image_btn -> signUpUsingGoogle()
         }
+    }
+
+    private fun signUpUsingGoogle() {
+        Log.d(TAG, "signUpUsingGoogle: sign up using google")
+        // TODO: update the sign up functioning using google
+
     }
 
     private fun openActivity(activityClass: Class<*>) {

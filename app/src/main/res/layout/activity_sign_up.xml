@@ -18,7 +18,7 @@
             android:layout_marginTop="60dp"
             android:paddingHorizontal="50dp"
             android:text="@string/welcome"
-            android:textColor="@color/white"
+            android:textColor="#283593"
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/user_edit_text"
@@ -102,7 +102,8 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@id/password_edit_text"
             app:layout_constraintStart_toStartOf="@id/password_edit_text"
-            app:layout_constraintTop_toBottomOf="@id/password_edit_text" />
+            app:layout_constraintTop_toBottomOf="@id/password_edit_text"
+            tools:ignore="VisualLintButtonSize" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/or"

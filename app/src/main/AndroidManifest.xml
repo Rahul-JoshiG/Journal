@@ -31,19 +31,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".view.AddJournalActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.Journal.NoActionBar"/>
+
         <activity
             android:name=".view.DashBoardActivity"
             android:exported="false" />
+
         <activity
             android:name=".view.SignUpActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.Journal.NoActionBar" />
+
         <activity
             android:name=".view.LogInActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"
+            android:theme="@style/Theme.Journal.NoActionBar"/>
+
     </application>
 
 </manifest>

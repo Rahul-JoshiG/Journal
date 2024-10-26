@@ -41,8 +41,8 @@ class AddJournalActivity : AppCompatActivity(), View.OnClickListener {
         registerForActivityResult(ActivityResultContracts.GetContent()) { result: Uri? ->
             result?.let {
                 mImageUri = result
-                mBinding.cardView.visibility = View.INVISIBLE
-                mBinding.showAddImage.visibility = View.VISIBLE
+                mBinding.cardView.visibility = INVISIBLE
+                mBinding.showAddImage.visibility = VISIBLE
                 mBinding.showAddImage.setImageURI(it)
             }
         }
@@ -51,11 +51,20 @@ class AddJournalActivity : AppCompatActivity(), View.OnClickListener {
         super.onStart()
         mUser = mFirebaseAuth.currentUser ?: run {
             Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()
+
+            // Redirect to LogInActivity
+            val intent = Intent(this@AddJournalActivity, LogInActivity::class.java)
+            startActivity(intent)
+
+            // Close the current activity
             finish()
             return
         }
+
+        // Proceed if the user is logged in
         mCollectionReference = mFireStore.collection("${mUser.uid}_Journals")
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,11 +94,9 @@ class AddJournalActivity : AppCompatActivity(), View.OnClickListener {
         val currentUser = mFirebaseAuth.currentUser
 
         if (title.isNotEmpty() && desc.isNotEmpty() && mImageUri != null) {
-            // Show progress bar and disable interactions
-            mBinding.progressBar.visibility = VISIBLE
-            mBinding.root.isEnabled = false  // Disable the entire layout to prevent user interaction
 
-            val filePath = mStorageReference.child("${mUser.uid}_Journals_images/${mUser.uid}_image_${Timestamp.now().seconds}")
+            val filePath =
+                mStorageReference.child("${mUser.uid}_Journals_images/${mUser.uid}_image_${Timestamp.now().seconds}")
 
             Log.d(TAG, "Uploading to path: ${filePath.path} ${mUser.displayName}")
 
@@ -109,34 +116,25 @@ class AddJournalActivity : AppCompatActivity(), View.OnClickListener {
 
                         mCollectionReference.add(journal)
                             .addOnSuccessListener {
-                                // Hide progress bar and re-enable interactions
-                                mBinding.progressBar.visibility = INVISIBLE
-                                mBinding.root.isEnabled = true  // Enable user interaction again
-
                                 val intent = Intent(this, DashBoardActivity::class.java)
                                 startActivity(intent)
                                 finish()
                             }
                             .addOnFailureListener { e ->
                                 Log.e(TAG, "Error adding journal: ${e.message}")
-                                mBinding.progressBar.visibility = INVISIBLE
-                                mBinding.root.isEnabled = true  // Enable user interaction on failure
                                 Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
                             }
                     }.addOnFailureListener { e ->
                         Log.e(TAG, "Error getting download URL: ${e.message}")
-                        mBinding.progressBar.visibility = INVISIBLE
-                        mBinding.root.isEnabled = true  // Enable user interaction on failure
                         Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
                     }
                 }.addOnFailureListener { e ->
                     Log.e(TAG, "Error uploading image: ${e.message}")
-                    mBinding.progressBar.visibility = INVISIBLE
-                    mBinding.root.isEnabled = true  // Enable user interaction on failure
                     Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
                 }
         } else {
-            Toast.makeText(this, "Please fill the fields and select an image", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Please fill the fields and select an image", Toast.LENGTH_SHORT)
+                .show()
         }
     }
 

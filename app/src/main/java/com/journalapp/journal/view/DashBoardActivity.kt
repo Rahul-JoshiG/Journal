@@ -1,11 +1,11 @@
 package com.journalapp.journal.view
 
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -23,6 +23,7 @@ import com.journalapp.journal.databinding.ActivityDashBoardBinding
 import com.journalapp.journal.model.Journal
 import com.journalapp.journal.utils.Constant
 import com.journalapp.journal.utils.SessionManager
+import com.journalapp.journal.utils.ToastHelper
 
 class DashBoardActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityDashBoardBinding
@@ -44,6 +45,8 @@ class DashBoardActivity : AppCompatActivity() {
         Log.d(TAG, "onCreate: on create method in DashBoard Activity")
         enableEdgeToEdge()
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_dash_board)
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(getColor(R.color.light_blue)))
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -100,7 +103,7 @@ class DashBoardActivity : AppCompatActivity() {
         Log.d(TAG, "onStart: dashboard activity")
 
         mUser = mFirebaseAuth.currentUser ?: run {
-            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()
+            ToastHelper.showToast("User not logged in")
             finish()
             return
         }
@@ -123,11 +126,7 @@ class DashBoardActivity : AppCompatActivity() {
 
             }
             .addOnFailureListener {
-                Toast.makeText(
-                    this@DashBoardActivity,
-                    "Something went wrong...",
-                    Toast.LENGTH_SHORT
-                ).show()
+                ToastHelper.showToast("Something went wrong...")
             }
     }
 
