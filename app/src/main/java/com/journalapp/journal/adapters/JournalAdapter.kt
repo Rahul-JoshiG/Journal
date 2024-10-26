@@ -12,7 +12,6 @@ import com.journalapp.journal.model.Journal
 
 class JournalAdapter(private var journal: List<Journal>) :
     RecyclerView.Adapter<JournalAdapter.ViewHolder>() {
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         Log.d(TAG, "onCreateViewHolder: view holder created")
         val binding =
@@ -36,7 +35,8 @@ class JournalAdapter(private var journal: List<Journal>) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(journal: Journal) {
-            val timeAgo = DateUtils.getRelativeTimeSpanString(journal.date.seconds * 1000L).toString()
+            val timeAgo =
+                DateUtils.getRelativeTimeSpanString(journal.date.seconds * 1000L).toString()
             binding.journalDate.text = timeAgo
             binding.journalTitle.text = journal.title
             binding.journalDescription.text = journal.description
@@ -49,7 +49,6 @@ class JournalAdapter(private var journal: List<Journal>) :
                 .load(url)
                 .apply(RequestOptions().centerCrop())
                 .into(binding.journalImage)
-
         }
     }
 
