@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".view.LogInActivity"
-        android:background="@color/light_blue">
+        android:background="@color/pink_700">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/welcome_text_view"
@@ -16,6 +16,7 @@
             android:layout_height="wrap_content"
             android:text="@string/welcome"
             android:textSize="30sp"
+            android:textColor="@color/brown"
             android:textStyle="bold"
             android:paddingHorizontal="20dp"
             android:layout_marginTop="100dp"
@@ -69,6 +70,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginHorizontal="20dp"
             android:text="@string/remember_me"
+            android:paddingHorizontal="10dp"
+            android:textColor="@color/brown"
             app:layout_constraintTop_toBottomOf="@id/password_text_view"
             app:layout_constraintStart_toStartOf="parent"/>
 
@@ -96,7 +99,7 @@
             android:text="@string/log_in"
             android:textColor="@color/white"
             android:textSize="16sp"
-            android:layout_marginHorizontal="10dp"
+            android:layout_marginHorizontal="30dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -107,15 +110,14 @@
             android:id="@+id/sign_up_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="40dp"
             android:background="@drawable/button_background"
             android:paddingHorizontal="40dp"
             android:text="@string/sign_up"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_marginHorizontal="10dp"
-
+            android:layout_marginHorizontal="30dp"
             app:layout_constraintEnd_toEndOf="@id/login_btn"
             app:layout_constraintStart_toStartOf="@id/login_btn"
             app:layout_constraintTop_toBottomOf="@id/login_btn"

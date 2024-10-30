@@ -16,10 +16,10 @@
     <!-- Border Layer -->
     <item>
         <shape>
-            <solid android:color="#FFFFFF" /> <!-- White background -->
+            <solid android:color="@color/white" /> <!-- White background -->
             <stroke
                 android:width="2dp"
-                android:color="#757575" /> <!-- Gray border -->
+                android:color="@color/brown" /> <!-- Gray border -->
             <corners android:radius="10dp" /> <!-- Rounded corners for the ImageView -->
         </shape>
     </item>

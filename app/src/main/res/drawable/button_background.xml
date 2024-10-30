@@ -2,7 +2,7 @@
     <item android:state_pressed="true">
         <shape>
             <!-- Pressed state color -->
-            <solid android:color="#3700B3" /> <!-- Darker purple when pressed -->
+            <solid android:color="@color/brown" /> <!-- Darker purple when pressed -->
             <corners android:radius="20dp" />
         </shape>
     </item>
@@ -10,7 +10,7 @@
     <item>
         <shape>
             <!-- Default state color -->
-            <solid android:color="#6200EE" /> <!-- Default purple background -->
+            <solid android:color="@color/brown" /> <!-- Default purple background -->
             <corners android:radius="20dp" />
         </shape>
     </item>

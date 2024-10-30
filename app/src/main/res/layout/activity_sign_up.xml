@@ -7,7 +7,7 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/gredient_signup"
+        android:background="@color/pink_700"
         android:padding="16dp"
         tools:context=".view.SignUpActivity">
 
@@ -18,7 +18,7 @@
             android:layout_marginTop="60dp"
             android:paddingHorizontal="50dp"
             android:text="@string/welcome"
-            android:textColor="#283593"
+            android:textColor="@color/brown"
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/user_edit_text"
@@ -93,6 +93,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+            android:layout_marginHorizontal="30dp"
             android:background="@drawable/button_background"
             android:elevation="8dp"
             android:paddingVertical="15dp"
@@ -105,33 +106,34 @@
             app:layout_constraintTop_toBottomOf="@id/password_edit_text"
             tools:ignore="VisualLintButtonSize" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/or"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/log_in_btn"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:paddingHorizontal="60dp"
-            android:text="@string/or"
+            android:layout_marginHorizontal="30dp"
+            android:background="@drawable/button_background"
+            android:elevation="8dp"
+            android:paddingVertical="15dp"
+            android:text="@string/already_have_an_account"
             android:textColor="@color/white"
-            android:textSize="22sp"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@id/sign_up_btn"
             app:layout_constraintStart_toStartOf="@id/sign_up_btn"
-            app:layout_constraintTop_toBottomOf="@id/sign_up_btn" />
+            app:layout_constraintTop_toBottomOf="@id/sign_up_btn"
+            tools:ignore="VisualLintButtonSize" />
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/google_image_btn"
+        <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/google_button_background"
-            android:contentDescription="@string/google"
-            android:elevation="8dp"
-            android:padding="20dp"
-            android:src="@drawable/google_48"
+            android:id="@+id/progress_bar"
+            android:padding="30dp"
+            android:visibility="invisible"
+            app:layout_constraintTop_toBottomOf="@id/log_in_btn"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/or"
-            app:layout_constraintStart_toStartOf="@id/or"
-            app:layout_constraintTop_toBottomOf="@id/or"
-            tools:ignore="ImageContrastCheck" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

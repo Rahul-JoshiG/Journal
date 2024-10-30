@@ -4,7 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -15,6 +16,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.journalapp.journal.R
 import com.journalapp.journal.databinding.ActivitySignUpBinding
+import com.journalapp.journal.utils.ToastHelper
 
 class SignUpActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var mBinding: ActivitySignUpBinding
@@ -26,8 +28,6 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
 
     //firebase connection
     private val mFireStore = FirebaseFirestore.getInstance()
-    private val mCollectionReference = mFireStore.collection("Users")
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +39,7 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
 
         setOnClickListener()
 
@@ -54,30 +55,38 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
     private fun createUserEmailAccount(user: String, email: String, password: String) {
         Log.d(TAG, "createUserEmailAccount: create new account with($user, $email, $password)")
         if (user.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
+            mBinding.progressBar.visibility = VISIBLE
+            mBinding.signUpBtn.isEnabled = false
+
             mFirebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        Toast.makeText(this@SignUpActivity, "Sign Up successful", Toast.LENGTH_SHORT).show()
+                        ToastHelper.showToast("Sign Up Successful")
                         openActivity(LogInActivity::class.java)
                     } else {
                         Log.e(TAG, "Sign Up failed: ${task.exception?.message}")
-                        Toast.makeText(this@SignUpActivity, "${task.exception?.message}", Toast.LENGTH_LONG).show()
+                        mBinding.progressBar.visibility = INVISIBLE
+                        mBinding.signUpBtn.isEnabled = true
+                        ToastHelper.showToast("${task.exception?.message}")
                     }
                 }
                 .addOnFailureListener { exception ->
                     Log.e(TAG, "Error creating user: ${exception.message}")
-                    Toast.makeText(this@SignUpActivity, "${exception.message}", Toast.LENGTH_LONG).show()
+                    mBinding.progressBar.visibility = INVISIBLE
+                    mBinding.signUpBtn.isEnabled = true
+                    //ToastHelper.showToast("${exception.message}")
                 }
         } else {
-            Toast.makeText(this@SignUpActivity, "Please fill in all fields", Toast.LENGTH_SHORT).show()
+            mBinding.progressBar.visibility = INVISIBLE
+            mBinding.signUpBtn.isEnabled = true
+            ToastHelper.showToast("Please fill all fields")
         }
     }
-
 
     private fun setOnClickListener() {
         Log.d(TAG, "setOnClickListener: clicked")
         mBinding.signUpBtn.setOnClickListener(this)
-        mBinding.googleImageBtn.setOnClickListener(this)
+        mBinding.logInBtn.setOnClickListener(this)
     }
 
     override fun onClick(p0: View?) {
@@ -88,22 +97,16 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
                 mBinding.emailIdEditText.text.toString(),
                 mBinding.passwordEditText.text.toString()
             )
-            R.id.google_image_btn -> signUpUsingGoogle()
+            R.id.log_in_btn-> openActivity(LogInActivity::class.java)
         }
-    }
-
-    private fun signUpUsingGoogle() {
-        Log.d(TAG, "signUpUsingGoogle: sign up using google")
-        // TODO: update the sign up functioning using google
-
     }
 
     private fun openActivity(activityClass: Class<*>) {
         Log.d(TAG, "openLogInActivity: opening $activityClass")
         val intent = Intent(this@SignUpActivity, activityClass)
         startActivity(intent)
+        finish()
     }
-
 
     companion object {
         private const val TAG = "SignUp Activity"

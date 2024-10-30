@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.journalapp.journal.R
 import com.journalapp.journal.adapters.JournalAdapter
 import com.journalapp.journal.databinding.ActivityDashBoardBinding
@@ -45,7 +46,7 @@ class DashBoardActivity : AppCompatActivity() {
         Log.d(TAG, "onCreate: on create method in DashBoard Activity")
         enableEdgeToEdge()
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_dash_board)
-        supportActionBar?.setBackgroundDrawable(ColorDrawable(getColor(R.color.light_blue)))
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(getColor(R.color.pink_700)))
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -111,7 +112,9 @@ class DashBoardActivity : AppCompatActivity() {
 
         val journalList: ArrayList<Journal> = ArrayList()
 
-        mCollectionReference.get()
+        // Fetch data with date ordered in descending order to show the latest posts on top
+        mCollectionReference.orderBy("date", Query.Direction.DESCENDING)
+            .get()
             .addOnSuccessListener { querySnapshot ->
                 // Clear previous data to avoid duplicates
                 journalList.clear()

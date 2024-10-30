@@ -22,4 +22,8 @@
     <string name="post">Post</string>
     <string name="remember_me">Remember Me</string>
     <string name="app_logo">app logo</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="change_picture">Change Picture</string>
+    <string name="already_have_an_account">Already have an Account</string>
 </resources>

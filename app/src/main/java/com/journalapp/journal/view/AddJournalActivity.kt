@@ -24,6 +24,7 @@ import com.google.firebase.storage.StorageReference
 import com.journalapp.journal.R
 import com.journalapp.journal.databinding.ActivityAddJournalBinding
 import com.journalapp.journal.model.Journal
+import com.journalapp.journal.utils.ToastHelper
 
 class AddJournalActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var mBinding: ActivityAddJournalBinding
@@ -78,6 +79,7 @@ class AddJournalActivity : AppCompatActivity(), View.OnClickListener {
 
         mBinding.addJournalImage.setOnClickListener(this)
         mBinding.postButton.setOnClickListener(this)
+        mBinding.changePictureBtn.setOnClickListener(this)
         mBinding.progressBar.visibility = INVISIBLE
     }
 
@@ -85,6 +87,7 @@ class AddJournalActivity : AppCompatActivity(), View.OnClickListener {
         when (p0?.id) {
             R.id.add_journal_image -> openGallery()
             R.id.post_button -> saveJournal()
+            R.id.change_picture_btn->openGallery()
         }
     }
 
@@ -94,9 +97,15 @@ class AddJournalActivity : AppCompatActivity(), View.OnClickListener {
         val currentUser = mFirebaseAuth.currentUser
 
         if (title.isNotEmpty() && desc.isNotEmpty() && mImageUri != null) {
+            // Show the progress bar and hide other elements
+            mBinding.progressBar.visibility = VISIBLE
+            mBinding.addJournalTitle.isEnabled = false
+            mBinding.addJournalDescription.isEnabled = false
+            mBinding.addJournalImage.isEnabled = false
+            mBinding.postButton.isEnabled = false
+            mBinding.showAddImage.isEnabled = false
 
-            val filePath =
-                mStorageReference.child("${mUser.uid}_Journals_images/${mUser.uid}_image_${Timestamp.now().seconds}")
+            val filePath = mStorageReference.child("${mUser.uid}_Journals_images/${mUser.uid}_image_${Timestamp.now().seconds}")
 
             Log.d(TAG, "Uploading to path: ${filePath.path} ${mUser.displayName}")
 
@@ -116,28 +125,37 @@ class AddJournalActivity : AppCompatActivity(), View.OnClickListener {
 
                         mCollectionReference.add(journal)
                             .addOnSuccessListener {
+                                // Navigate to the Dashboard activity
+                                mBinding.progressBar.visibility = INVISIBLE
                                 val intent = Intent(this, DashBoardActivity::class.java)
                                 startActivity(intent)
                                 finish()
                             }
                             .addOnFailureListener { e ->
-                                Log.e(TAG, "Error adding journal: ${e.message}")
-                                Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+                                showError(e.message)
                             }
                     }.addOnFailureListener { e ->
-                        Log.e(TAG, "Error getting download URL: ${e.message}")
-                        Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+                        showError(e.message)
                     }
                 }.addOnFailureListener { e ->
-                    Log.e(TAG, "Error uploading image: ${e.message}")
-                    Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+                    showError(e.message)
                 }
         } else {
-            Toast.makeText(this, "Please fill the fields and select an image", Toast.LENGTH_SHORT)
-                .show()
+            ToastHelper.showToast("Please fill all the fields and images")
         }
     }
 
+    private fun showError(errorMessage: String?) {
+        Log.e(TAG, "Error: $errorMessage")
+        ToastHelper.showToast("$errorMessage")
+        // Hide the progress bar and make UI elements visible again
+        mBinding.progressBar.visibility = INVISIBLE
+        mBinding.addJournalTitle.isEnabled = true
+        mBinding.addJournalDescription.isEnabled = true
+        mBinding.addJournalImage.isEnabled = true
+        mBinding.postButton.isEnabled = true
+        mBinding.showAddImage.isEnabled = true
+    }
 
     private fun openGallery() {
         mImage.launch("image/*")

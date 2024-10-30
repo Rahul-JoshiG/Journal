@@ -1,34 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="30dp"
+        android:layout_height="match_parent"
         android:background="@color/pink_500">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/linear_layout2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_margin="8dp"
             android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/journal_image"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
+                android:layout_height="600dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/image_view_border"
                 android:elevation="12dp"
                 android:padding="5dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_launcher_foreground" />
+                android:src="@drawable/logo" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/journal_title"
@@ -49,19 +48,11 @@
                 android:hint="@string/journal_description"
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="10dp"
+                android:lines="5"
                 android:textColor="@color/brown"
                 android:textColorHint="@color/brown"
                 android:textSize="18sp" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/journal_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/journal_date"
-                android:paddingHorizontal="10dp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/brown"
-                android:textStyle="italic" />
         </androidx.appcompat.widget.LinearLayoutCompat>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>

@@ -6,4 +6,11 @@
     <color name="dark_teal">#37474F</color>
     <color name="purple">#6854D0</color>
     <color name="light_blue">#87CEEB</color>
+    <color name="pink_700">#FEDBD0</color>
+    <color name="pink_500">#FEEAE6</color>
+    <color name="brown">#442C3E</color>
+    <color name="blue_700">#344955</color>
+    <color name="blue_800">#232F34</color>
+    <color name="blue_600">#4A6572</color>
+    <color name="orange_500">#F9AA33</color>
 </resources>

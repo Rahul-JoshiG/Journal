@@ -1,19 +1,18 @@
 <resources>
     <!-- Base application theme without ActionBar (used for Splash or other screens without ActionBar) -->
-    <style name="Base.Theme.Journal.NoActionBar" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/light_blue</item>
-        <!-- Darker shade for AppBar when scrolled or elevated -->
-        <item name="colorPrimaryVariant">@color/light_blue</item>
+    <style name="Base.Theme.Journal.NoActionBar" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/pink_700</item>
+        <item name="colorPrimaryVariant">@color/pink_500</item>
+        <item name="android:textColor">@color/brown</item>
+
     </style>
 
     <!-- Theme for screens with ActionBar -->
-    <style name="Base.Theme.Journal.ActionBar" parent="Theme.Material3.DayNight">
-        <!-- Customize your theme with ActionBar here -->
-        <item name="windowActionBar">true</item>
-        <item name="windowNoTitle">false</item>
-        <item name="colorPrimary">@color/light_blue</item>
-        <!-- Darker shade for AppBar when scrolled or elevated -->
-        <item name="colorPrimaryVariant">@color/light_blue</item>
+    <style name="Base.Theme.Journal.ActionBar" parent="Theme.Material3.Light">
+        <item name="colorPrimary">@color/pink_700</item>
+        <item name="colorPrimaryVariant">@color/pink_500</item>
+        <item name="android:textColor">@color/brown</item>
+        <item name="buttonIcon">@color/brown</item>
     </style>
 
     <!-- Extend the base theme for flexibility -->

@@ -7,26 +7,25 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/light_blue"
         tools:context=".view.DashBoardActivity">
 
-        <com.google.android.material.appbar.AppBarLayout
+        <androidx.appcompat.widget.ActionMenuView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/app_bar"
-            android:background="@color/light_blue"
+            app:layout_constraintBottom_toBottomOf="@id/app_bar"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/recycler_view"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:padding="8dp"
-            android:layout_marginTop="20dp"
+            android:background="@color/pink_500"
             tools:listitem="@layout/journal_layout"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/app_bar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -37,9 +36,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="30dp"
             android:contentDescription="@string/add_new_journal"
-            android:src="@drawable/ic_add_24"
-            style="@style/Widget.Material3.FloatingActionButton.Primary"
-            android:backgroundTint="@color/purple"
+            android:src="@drawable/ic_add_white"
+            android:backgroundTint="@color/orange_500"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
