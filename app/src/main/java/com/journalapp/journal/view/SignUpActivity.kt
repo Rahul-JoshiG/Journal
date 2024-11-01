@@ -13,7 +13,8 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.journalapp.journal.R
 import com.journalapp.journal.databinding.ActivitySignUpBinding
 import com.journalapp.journal.utils.ToastHelper
@@ -27,7 +28,8 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
     private var mCurrentUser: FirebaseUser? = null
 
     //firebase connection
-    private val mFireStore = FirebaseFirestore.getInstance()
+    private lateinit var mDatabaseReference: DatabaseReference
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,8 +63,30 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
             mFirebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        ToastHelper.showToast("Sign Up Successful")
-                        openActivity(LogInActivity::class.java)
+                        mCurrentUser = mFirebaseAuth.currentUser
+                        // Initialize Realtime Database reference to Users node
+                        mDatabaseReference = FirebaseDatabase.getInstance().getReference("Users")
+
+                        // Create a map to store user data
+                        val userData = mapOf(
+                            "name" to user,
+                            "email" to email,
+                            "password" to password
+                        )
+
+                        // Store user data under a child node with their UID as the key
+                        mDatabaseReference.child(mCurrentUser!!.uid)
+                            .setValue(userData)
+                            .addOnSuccessListener {
+                                ToastHelper.showToast("Sign Up Successful")
+                                openActivity(LogInActivity::class.java)
+                            }
+                            .addOnFailureListener { e ->
+                                Log.e(TAG, "Failed to save user data: ${e.message}")
+                                ToastHelper.showToast("Failed to save user data.")
+                                mBinding.progressBar.visibility = INVISIBLE
+                                mBinding.signUpBtn.isEnabled = true
+                            }
                     } else {
                         Log.e(TAG, "Sign Up failed: ${task.exception?.message}")
                         mBinding.progressBar.visibility = INVISIBLE
@@ -74,7 +98,6 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
                     Log.e(TAG, "Error creating user: ${exception.message}")
                     mBinding.progressBar.visibility = INVISIBLE
                     mBinding.signUpBtn.isEnabled = true
-                    //ToastHelper.showToast("${exception.message}")
                 }
         } else {
             mBinding.progressBar.visibility = INVISIBLE
@@ -82,6 +105,7 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
             ToastHelper.showToast("Please fill all fields")
         }
     }
+
 
     private fun setOnClickListener() {
         Log.d(TAG, "setOnClickListener: clicked")
@@ -97,7 +121,8 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
                 mBinding.emailIdEditText.text.toString(),
                 mBinding.passwordEditText.text.toString()
             )
-            R.id.log_in_btn-> openActivity(LogInActivity::class.java)
+
+            R.id.log_in_btn -> openActivity(LogInActivity::class.java)
         }
     }
 

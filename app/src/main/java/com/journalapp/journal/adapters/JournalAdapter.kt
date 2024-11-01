@@ -5,18 +5,16 @@ import android.text.format.DateUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.journalapp.journal.R
 import com.journalapp.journal.databinding.JournalLayoutBinding
-import com.journalapp.journal.databinding.ShowSingleJournalBinding
+import com.journalapp.journal.interfaces.IJournalAction
 import com.journalapp.journal.model.Journal
 
 class JournalAdapter(
-    private var journalList: List<Journal>
+    private var journalList: List<Journal>,
+    private var journalAction: IJournalAction
 ) : RecyclerView.Adapter<JournalAdapter.JournalViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JournalViewHolder {
@@ -33,7 +31,7 @@ class JournalAdapter(
 
     override fun getItemCount(): Int = journalList.size
 
-    class JournalViewHolder(
+    inner class JournalViewHolder(
         private val binding: JournalLayoutBinding,
         private val context: Context
     ) : RecyclerView.ViewHolder(binding.root) {
@@ -51,6 +49,16 @@ class JournalAdapter(
             binding.root.setOnClickListener {
                 showJournalDialog(journal)
             }
+
+            binding.root.setOnLongClickListener{
+                deleteJournal(journal)
+            }
+        }
+
+        private fun deleteJournal(journal: Journal): Boolean {
+            Log.d(TAG, "deleteJournal: delete $journal")
+            journalAction.deleteJournal(journal)
+            return true
         }
 
         private fun setImage(url: String?) {
@@ -63,24 +71,7 @@ class JournalAdapter(
 
         private fun showJournalDialog(journal: Journal) {
             Log.d(TAG, "showJournalDialog: showing current journal")
-            val dialogBinding = ShowSingleJournalBinding.inflate(LayoutInflater.from(context))
-            dialogBinding.journalTitle.text = journal.title
-            dialogBinding.journalDescription.text = journal.description
-            Glide.with(binding.journalImage.context)
-                .load(journal.imageUrl)
-                .apply(RequestOptions().centerCrop())
-                .into(dialogBinding.journalImage)
-
-            val dialog = AlertDialog.Builder(context)
-                .setView(dialogBinding.root)
-                .setNegativeButton("Close") { dialogInterface, _ ->
-                    dialogInterface.dismiss()
-                }
-                .show()
-
-            dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
-                ?.setTextColor(ContextCompat.getColor(context, R.color.brown))
-
+            journalAction.openJournal(journal)
         }
     }
 

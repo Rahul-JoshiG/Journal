@@ -41,5 +41,11 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
+        <androidx.fragment.app.FragmentContainerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/fragment_view"
+            android:visibility="invisible"
+            android:background="@color/pink_700"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

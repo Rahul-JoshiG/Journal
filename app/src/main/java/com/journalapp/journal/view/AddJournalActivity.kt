@@ -97,7 +97,7 @@ class AddJournalActivity : AppCompatActivity(), View.OnClickListener {
         val currentUser = mFirebaseAuth.currentUser
 
         if (title.isNotEmpty() && desc.isNotEmpty() && mImageUri != null) {
-            // Show the progress bar and hide other elements
+            // Show the progress bar and disable UI elements
             mBinding.progressBar.visibility = VISIBLE
             mBinding.addJournalTitle.isEnabled = false
             mBinding.addJournalDescription.isEnabled = false
@@ -114,36 +114,48 @@ class AddJournalActivity : AppCompatActivity(), View.OnClickListener {
                     filePath.downloadUrl.addOnSuccessListener { uri ->
                         val imageUri = uri.toString()
 
+                        // Create a temporary Journal object without the `id` field set
                         val journal = Journal(
                             title = title,
                             description = desc,
                             imageUrl = imageUri,
                             date = Timestamp.now(),
-                            name = currentUser?.displayName ?: "",
-                            id = mUser.uid
+                            name = currentUser?.displayName ?: ""
                         )
 
+                        // Add the journal document to Firestore
                         mCollectionReference.add(journal)
-                            .addOnSuccessListener {
-                                // Navigate to the Dashboard activity
-                                mBinding.progressBar.visibility = INVISIBLE
-                                val intent = Intent(this, DashBoardActivity::class.java)
-                                startActivity(intent)
-                                finish()
+                            .addOnSuccessListener { documentReference ->
+                                // Retrieve and set the Firestore document ID as the `id` field in the Journal document
+                                val journalId = documentReference.id
+                                documentReference.update("id", journalId)
+                                    .addOnSuccessListener {
+                                        Log.d(TAG, "Journal saved with ID: $journalId")
+
+                                        // Hide progress and navigate to the Dashboard
+                                        mBinding.progressBar.visibility = INVISIBLE
+                                        val intent = Intent(this, DashBoardActivity::class.java)
+                                        startActivity(intent)
+                                        finish()
+                                    }
+                                    .addOnFailureListener { e ->
+                                        showError("Error updating journal ID: ${e.message}")
+                                    }
                             }
                             .addOnFailureListener { e ->
-                                showError(e.message)
+                                showError("Error adding journal: ${e.message}")
                             }
                     }.addOnFailureListener { e ->
-                        showError(e.message)
+                        showError("Error retrieving image URL: ${e.message}")
                     }
                 }.addOnFailureListener { e ->
-                    showError(e.message)
+                    showError("Error uploading image: ${e.message}")
                 }
         } else {
-            ToastHelper.showToast("Please fill all the fields and images")
+            ToastHelper.showToast("Please fill all the fields and add an image")
         }
     }
+
 
     private fun showError(errorMessage: String?) {
         Log.e(TAG, "Error: $errorMessage")
