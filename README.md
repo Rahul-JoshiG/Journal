@@ -3,6 +3,8 @@
 
 <div align="center">
    <img src='https://github.com/Rahul-JoshiG/Journal/blob/master/app/src/main/res/drawable/logo.jpg' />
+</div>
+<br>
 
 # The Journal App
 
@@ -78,7 +80,7 @@ https://github.com/user-attachments/assets/2d45bb56-3c6a-403a-9aca-803b9ab32615
 
 
 
-
+<div align="center">
 <h3 align="center">SURE Trust - Skill Upgradation for Rural-youth Empowerment Trust</h3>
   <h2>G4 AAD (Android App Development) </h2>
 </div>
